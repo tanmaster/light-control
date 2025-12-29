@@ -10,7 +10,7 @@ DEVICE_ID: dict = {
 }
 
 # The official driver increments these bytes with each command, though it seems that the Light strip does not really
-# care about them. Thus, I set them to be constant.
+# care about them. Thus, I set them to a constant value.
 CNT_BYTE_1 = 0x01  # range from 0x01 to 0xfe, both inclusive
 CNT_BYTE_2 = 0x00  # range from 0x00 to 0xff, both inclusive
 
@@ -22,7 +22,7 @@ STATIC_COLOR_START_SEQUENCE = [0x52, 0x42, 0x10]
 # is picked.
 RGB_SEQUENCE = [0xff, 0xff, 0xff]
 
-# Bytes 6-8 represent the RGB values of GENERIC_COLOR_COMMAND
+# Bytes 6-8 represent the RGB values of GENERIC_STATIC_COLOR_COMMAND
 RGB_INDEX = slice(6, 8)
 
 # Appended to the end of the command to give it a length of 64 bytes.
@@ -36,7 +36,7 @@ ZERO_PADDING_SEQUENCE = [
 UNKNOWN_SEQUENCE_1 = [0x86, 0x1]
 UNKNOWN_SEQUENCE_2 = [0x50, 0x51, 0x0, 0x0, 0x0, 0xfe]
 
-GENERIC_COLOR_COMMAND: list[int] = [
+GENERIC_STATIC_COLOR_COMMAND: list[int] = [
     *STATIC_COLOR_START_SEQUENCE,
     CNT_BYTE_1,
     *UNKNOWN_SEQUENCE_1,
@@ -46,5 +46,5 @@ GENERIC_COLOR_COMMAND: list[int] = [
     *ZERO_PADDING_SEQUENCE,
 ]
 
-# Required on Windows machines when using hidapi (seemingly optional in others)
+# Required on Windows machines when using hidapi (seemingly optional on other platforms)
 REPORT_ID_PREFIX = [0x00]
