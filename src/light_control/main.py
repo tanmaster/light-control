@@ -62,7 +62,7 @@ class LightControlApplication:
         self.pending_color = color.red(), color.green(), color.blue()
         self.tray.setIcon(self.create_icon())
         # Restart timer: only executes if user stops moving for 100ms
-        self.debounce_timer.start(100)
+        self.debounce_timer.start(5)
 
     def execute_color_change(self):
         """ Runs when timer finishes; launches the background worker """
