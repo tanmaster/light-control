@@ -1,3 +1,5 @@
+APP_NAME="light-control"
+
 # needed to identify the USB HID device
 VENDOR_ID: int = 0x1a86
 PRODUCT_ID: int = 0xfe07

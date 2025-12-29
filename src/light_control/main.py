@@ -3,7 +3,7 @@ import sys
 from PySide6.QtCore import QRunnable, QThreadPool, QTimer
 from PySide6.QtGui import QIcon, QPixmap, QColor
 from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QColorDialog
-
+from light_control.constants import APP_NAME
 from light_control.hidusb import send_static
 
 
@@ -21,6 +21,8 @@ class HeavyWorker(QRunnable):
 class AsyncColorPicker:
     def __init__(self):
         self.app = QApplication(sys.argv)
+        self.app.setApplicationName(APP_NAME)
+        self.app.setApplicationDisplayName(APP_NAME)
         self.app.setQuitOnLastWindowClosed(False)
         self.thread_pool = QThreadPool.globalInstance()  # Manage background threads
 
@@ -32,6 +34,7 @@ class AsyncColorPicker:
 
         # 2. Setup Dialog
         self.dialog = QColorDialog()
+        self.dialog.setWindowTitle(APP_NAME)
         self.dialog.setOption(QColorDialog.DontUseNativeDialog)
         self.dialog.currentColorChanged.connect(self.on_color_changed)
 
@@ -41,10 +44,20 @@ class AsyncColorPicker:
         self.tray = QSystemTrayIcon(QIcon(pixmap), self.app)
 
         menu = QMenu()
-        menu.addAction("Open Picker", self.dialog.show)
+        menu.addAction("Open Picker", self.open_picker)
         menu.addAction("Quit", self.app.quit)
         self.tray.setContextMenu(menu)
         self.tray.show()
+
+    def open_picker(self):
+        # 1. Make the dialog visible
+        self.dialog.show()
+
+        # 2. Specifically for macOS: Raise it above other apps
+        self.dialog.raise_()
+
+        # 3. Give it keyboard and mouse focus
+        self.dialog.activateWindow()
 
     def on_color_changed(self, color):
         """ This is called on the UI thread; keep it fast! """
