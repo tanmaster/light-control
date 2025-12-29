@@ -28,7 +28,7 @@ class AsyncColorPicker:
         self.debounce_timer = QTimer()
         self.debounce_timer.setSingleShot(True)
         self.debounce_timer.timeout.connect(self.execute_heavy_task)
-        self.pending_color = None
+        self.pending_color = (0xff, 0xff, 0xff)
 
         # 2. Setup Dialog
         self.dialog = QColorDialog()
@@ -49,6 +49,7 @@ class AsyncColorPicker:
     def on_color_changed(self, color):
         """ This is called on the UI thread; keep it fast! """
         self.pending_color = color.red(), color.green(), color.blue()
+        self.tray.setIcon(self.create_icon(color.name()))
         # Restart timer: only executes if user stops moving for 100ms
         self.debounce_timer.start(100)
 
@@ -60,6 +61,12 @@ class AsyncColorPicker:
 
     def run(self):
         sys.exit(self.app.exec())
+
+    @staticmethod
+    def create_icon(color_name):
+        pixmap = QPixmap(16, 16)
+        pixmap.fill(QColor(color_name))
+        return QIcon(pixmap)
 
 
 if __name__ == "__main__":
