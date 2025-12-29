@@ -61,7 +61,7 @@ class LightControlApplication:
         """ This is called on the UI thread; keep it fast! """
         self.pending_color = color.red(), color.green(), color.blue()
         self.tray.setIcon(self.create_icon())
-        # Restart timer: only executes if user stops moving for 100ms
+        # Restart timer: only executes if user stops moving for n milliseconds
         self.debounce_timer.start(5)
 
     def execute_color_change(self):
