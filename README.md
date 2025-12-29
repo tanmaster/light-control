@@ -14,3 +14,13 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ```shell
 uv run python src/light_control/main.py # run it
 ```
+
+
+#### todo
+- autostart application
+- store last application state (i.e. last set color) (also inbetween executions)
+- remove custom color capability from color picker
+- matter control?
+- automatically detect when device is attached and re-execute last known color
+
+- actually add this device to the openRGB project and make this project obsolete
