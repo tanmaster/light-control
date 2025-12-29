@@ -44,5 +44,5 @@ GENERIC_COLOR_COMMAND: list[int] = [
     *ZERO_PADDING_SEQUENCE,
 ]
 
-# Required on Windows machines when using hidapi
+# Required on Windows machines when using hidapi (seemingly optional in others)
 REPORT_ID_PREFIX = [0x00]
