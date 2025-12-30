@@ -1,7 +1,7 @@
 import time
 
 import hid
-
+from PySide6.QtCore import Signal
 from light_control.constants import DEVICE_ID, RGB_INDEX, REPORT_ID_PREFIX, GENERIC_STATIC_COLOR_COMMAND
 
 
@@ -11,6 +11,8 @@ class DisconnectedError(Exception):
 
 
 class HIDLight:
+    status_changed = Signal(str)
+    status = "Uninitialized"
 
     def __init__(self):
         self.dev = hid.device()
@@ -32,10 +34,13 @@ class HIDLight:
             if result == -1:
                 raise DisconnectedError("Device was connected at some point but is no more")
         except ValueError:
+            self.__set_status__("Device not found")
             return False
         except IOError:
+            self.__set_status__("Device not found")
             return False
         except DisconnectedError:
+            self.__set_status__("Device disconnected")
             return False
 
         return True
@@ -44,4 +49,8 @@ class HIDLight:
         try:
             self.dev.open(**DEVICE_ID)
         except IOError:
-            print("Device not found")
+            self.__set_status__("Device not found")
+
+    def __set_status__(self, new_status: str):
+        self.status = new_status
+        self.status_changed.emit(new_status)
