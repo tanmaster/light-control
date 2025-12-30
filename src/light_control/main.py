@@ -60,6 +60,7 @@ class LightControlApplication:
         menu.addAction("Quit", self.app.quit)
         self.tray.setContextMenu(menu)
         self.tray.show()
+        self.open_picker()
 
     def open_picker(self) -> None:
         # 1. Make the dialog visible
