@@ -20,8 +20,12 @@ green = "00ff00"
 blue = "0000ff"
 white = "ffffff"
 
-for color in [red, green, blue, white, ]:
-
+for color in [
+    red,
+    green,
+    blue,
+    white,
+]:
     commands = [
         f"53430101378001{color}0102{color}02030000ff0405ff00000506ff00000809ff0000090aff00000b0cff00000c0dff00000e0fff00000f10ff00001011ff00",
         "001213ff00001314ff00001516ff00001617ff00001819ff00001a1bff00001c1dff00001e1fff00002021ff00002223ff00002324ff00002526ff00002627ff",

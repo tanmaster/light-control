@@ -12,8 +12,8 @@ def subtract_hex_pairs(pairs):
         # Format back to hex, stripping '0x', and padding to original length
         # Using ljust/rjust or format depending on if you want leading zeros
         length = len(command3)
-        result1 = format(diff1, 'x').zfill(length)
-        result2 = format(diff2, 'x').zfill(length)
+        result1 = format(diff1, "x").zfill(length)
+        result2 = format(diff2, "x").zfill(length)
 
         print(f"Result:\n{result1}\n{result2}")
 

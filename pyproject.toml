@@ -31,3 +31,5 @@ dev = [
     "ruff",
 ]
 
+[tool.ruff.lint]
+select = ["PL"] # Enable all Pylint-equivalent rules

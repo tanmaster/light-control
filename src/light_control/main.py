@@ -13,7 +13,7 @@ from light_control.settings import StoredSettings
 
 
 class ColorChangeWorker(QRunnable):
-    """ Task that runs in the background thread """
+    """Task that runs in the background thread"""
 
     def __init__(self, color_hex, light: HIDLight, settings: StoredSettings) -> None:
         super().__init__()
@@ -73,14 +73,14 @@ class LightControlApplication:
         self.dialog.activateWindow()
 
     def on_color_changed(self, color) -> None:
-        """ This is called on the UI thread; keep it fast! """
+        """This is called on the UI thread; keep it fast!"""
         self.pending_color = color.red(), color.green(), color.blue()
         self.tray.setIcon(self.create_icon())
         # Restart timer: only executes if user stops moving for n milliseconds
         self.debounce_timer.start(5)
 
     def execute_color_change(self) -> None:
-        """ Runs when timer finishes; launches the background worker """
+        """Runs when timer finishes; launches the background worker"""
         if self.pending_color:
             worker = ColorChangeWorker(self.pending_color, self.light, self.settings)
             self.thread_pool.start(worker)
@@ -105,10 +105,7 @@ if __name__ == "__main__":
     app = LightControlApplication(hid_light, stored_settings)
 
     # listener for usb changes (plug in, plug out)
-    listener = LEDConnectedListener(
-        **DEVICE_ID,
-        callback=app.execute_color_change
-    )
+    listener = LEDConnectedListener(**DEVICE_ID, callback=app.execute_color_change)
     usb.on_connected(listener.handler)
 
     app.run()

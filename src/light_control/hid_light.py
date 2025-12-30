@@ -2,7 +2,12 @@ import time
 
 import hid
 
-from light_control.constants import DEVICE_ID, RGB_INDEX, REPORT_ID_PREFIX, GENERIC_STATIC_COLOR_COMMAND
+from light_control.constants import (
+    DEVICE_ID,
+    RGB_INDEX,
+    REPORT_ID_PREFIX,
+    GENERIC_STATIC_COLOR_COMMAND,
+)
 
 
 class DisconnectedError(Exception):
@@ -11,7 +16,6 @@ class DisconnectedError(Exception):
 
 
 class HIDLight:
-
     def __init__(self):
         self.dev = hid.device()
         self.__try_open__()
@@ -30,7 +34,9 @@ class HIDLight:
         try:
             result = self.dev.write(REPORT_ID_PREFIX + data_to_send)
             if result == -1:
-                raise DisconnectedError("Device was connected at some point but is no more")
+                raise DisconnectedError(
+                    "Device was connected at some point but is no more"
+                )
         except ValueError:
             return False
         except IOError:

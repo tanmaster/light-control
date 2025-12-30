@@ -2,7 +2,6 @@ from usbx import Device
 
 
 class LEDConnectedListener:
-
     def __init__(self, vendor_id, product_id, callback):
         self.vid = vendor_id
         self.pid = product_id

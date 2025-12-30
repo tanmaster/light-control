@@ -53,7 +53,6 @@ command5 = [
 ]
 
 for commands in [command1, command2, command3, command4]:
-
     for command in commands:
         # Add a Report ID prefix (0x00) (required on Windows, optional for macOS, ? for linux)
         data_to_send = list(bytearray.fromhex(command))

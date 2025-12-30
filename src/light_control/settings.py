@@ -7,7 +7,6 @@ from light_control.constants import APP_NAME, APP_AUTHOR, SETTINGS_FILE, DEFAULT
 
 
 class StoredSettings:
-
     def __init__(self):
         self.data_dir = user_data_dir(APP_NAME, APP_AUTHOR)
         self.settings_path = os.path.join(self.data_dir, SETTINGS_FILE)
