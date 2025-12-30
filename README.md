@@ -1,6 +1,8 @@
 # light-control
 
 Attempting to reverse engineer the DX-Light App to control a generic monitor backlight strip.
+This software will control a generic [light strip monitor backlight](https://www.amazon.de/dp/B0F53TVYZL) frequently
+found on amazon.
 
 ### installation
 
