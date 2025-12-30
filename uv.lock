@@ -65,6 +65,7 @@ source = { editable = "." }
 dependencies = [
     { name = "hidapi" },
     { name = "pyside6" },
+    { name = "usbx" },
 ]
 
 [package.dev-dependencies]
@@ -77,6 +78,7 @@ dev = [
 requires-dist = [
     { name = "hidapi", specifier = ">=0.15.0" },
     { name = "pyside6" },
+    { name = "usbx", specifier = ">=0.8.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -212,4 +214,13 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/16/b8/939c24ebd662b0aa5c945443d0973145b3fb7079f0196274ef7bb4b98f73/shiboken6-6.10.1-cp39-abi3-manylinux_2_39_aarch64.whl", hash = "sha256:c095b00f4d6bf578c0b2464bb4e264b351a99345374478570f69e2e679a2a1d0", size = 268691, upload-time = "2025-11-20T10:08:55.639Z" },
     { url = "https://files.pythonhosted.org/packages/cf/a6/8c65ee0fa5e172ebcca03246b1bc3bd96cdaf1d60537316648536b7072a5/shiboken6-6.10.1-cp39-abi3-win_amd64.whl", hash = "sha256:c1601d3cda1fa32779b141663873741b54e797cb0328458d7466281f117b0a4e", size = 1234704, upload-time = "2025-11-20T10:08:57.417Z" },
     { url = "https://files.pythonhosted.org/packages/7b/6a/c0fea2f2ac7d9d96618c98156500683a4d1f93fea0e8c5a2bc39913d7ef1/shiboken6-6.10.1-cp39-abi3-win_arm64.whl", hash = "sha256:5cf800917008587b551005a45add2d485cca66f5f7ecd5b320e9954e40448cc9", size = 1795567, upload-time = "2025-11-20T10:08:59.184Z" },
+]
+
+[[package]]
+name = "usbx"
+version = "0.8.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/89/a9/dd8432d5607b5a00a575b79ea30cf8008e6692d65c13d62f31a8141d95b7/usbx-0.8.1.tar.gz", hash = "sha256:0ab73ab91d5bdb0a0e44202b74091c811a5e19d857869354220cc2140b5dce3b", size = 48570, upload-time = "2025-02-23T09:54:26.053Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b8/97/ef408b1b119ff2e31fe5640ea6220426bc7abe29ae64b3037f08c9df3de5/usbx-0.8.1-py3-none-any.whl", hash = "sha256:5a798f607955470bc0715c785cdbe26a3ecf6809f20b2184bdd2463d89bd2198", size = 57533, upload-time = "2025-02-23T09:54:23.851Z" },
 ]

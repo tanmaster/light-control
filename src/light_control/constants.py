@@ -1,4 +1,4 @@
-APP_NAME="light-control"
+APP_NAME = "light-control"
 
 # needed to identify the USB HID device
 VENDOR_ID: int = 0x1a86
@@ -18,7 +18,7 @@ CNT_BYTE_2 = 0x00  # range from 0x00 to 0xff, both inclusive
 # At least in 'sync mode', this sequence differs
 STATIC_COLOR_START_SEQUENCE = [0x52, 0x42, 0x10]
 
-# This sequence defines the color. Used to bring the list to the right length, otherwise overwritten later when a color
+# This sequence defines the color. Used to bring the list to the right length, values are overwritten later when a color
 # is picked.
 RGB_SEQUENCE = [0xff, 0xff, 0xff]
 
