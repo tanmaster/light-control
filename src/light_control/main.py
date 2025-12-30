@@ -9,23 +9,27 @@ from usbx import usb
 from light_control.constants import APP_NAME, DEVICE_ID
 from light_control.hid_light import HIDLight
 from light_control.listener import LEDConnectedListener
+from light_control.settings import StoredSettings
 
 
 class ColorChangeWorker(QRunnable):
     """ Task that runs in the background thread """
 
-    def __init__(self, color_hex, hid_light: HIDLight):
+    def __init__(self, color_hex, light: HIDLight, settings: StoredSettings) -> None:
         super().__init__()
         self.color_hex = color_hex
-        self.hid_light = hid_light
+        self.light = light
+        self.settings = settings
 
-    def run(self):
-        self.hid_light.send_static(self.color_hex)
+    def run(self) -> None:
+        self.settings.save_color(self.color_hex)
+        self.light.send_static(self.color_hex)
 
 
 class LightControlApplication:
-    def __init__(self, hid_light: HIDLight) -> None:
-        self.hid_light = hid_light
+    def __init__(self, light: HIDLight, settings: StoredSettings) -> None:
+        self.light = light
+        self.settings = settings
 
         self.app = QApplication(sys.argv)
         self.app.setApplicationName(APP_NAME)
@@ -33,16 +37,18 @@ class LightControlApplication:
         self.app.setQuitOnLastWindowClosed(False)
         self.thread_pool = QThreadPool.globalInstance()  # Manage background threads
 
-        # 1. Setup Debounce Timer (waits 100ms after last move before executing)
+        # 1. Setup Debounce Timer (waits after last move before executing)
         self.debounce_timer = QTimer()
         self.debounce_timer.setSingleShot(True)
         self.debounce_timer.timeout.connect(self.execute_color_change)
-        self.pending_color = (0xff, 0xff, 0xff)
+        self.pending_color = settings.get_color()
+        self.execute_color_change()  # set the initial color to the stored or default one
 
         # 2. Setup Dialog
         self.dialog = QColorDialog()
         self.dialog.setWindowTitle(APP_NAME)
         self.dialog.setOption(QColorDialog.DontUseNativeDialog)
+        self.dialog.setCurrentColor(QColor.fromRgb(*self.pending_color))
         self.dialog.currentColorChanged.connect(self.on_color_changed)
 
         # 3. Setup Tray
@@ -51,6 +57,7 @@ class LightControlApplication:
 
         menu = QMenu()
         menu.addAction("Open Picker", self.open_picker)
+        menu.addSeparator()
         menu.addAction("Quit", self.app.quit)
         self.tray.setContextMenu(menu)
         self.tray.show()
@@ -75,7 +82,7 @@ class LightControlApplication:
     def execute_color_change(self) -> None:
         """ Runs when timer finishes; launches the background worker """
         if self.pending_color:
-            worker = ColorChangeWorker(self.pending_color, self.hid_light)
+            worker = ColorChangeWorker(self.pending_color, self.light, self.settings)
             self.thread_pool.start(worker)
 
     def on_tray_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
@@ -96,13 +103,17 @@ if __name__ == "__main__":
     # for some reason this needs to be called in order for usb notifications to work
     devices = usb.find_devices()
 
+    # initialize dependencies
+    stored_settings = StoredSettings()
     hid_light = HIDLight()
-    app = LightControlApplication(hid_light)
 
+    app = LightControlApplication(hid_light, stored_settings)
+
+    # listener for usb changes (plug in, plug out)
     listener = LEDConnectedListener(
         **DEVICE_ID,
         callback=app.execute_color_change
     )
-
     usb.on_connected(listener.handler)
+
     app.run()

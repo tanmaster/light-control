@@ -1,4 +1,9 @@
+# appdata directory will be under this name
+APP_AUTHOR = "tanmaster"
 APP_NAME = "light-control"
+
+SETTINGS_FILE = "settings.json"
+DEFAULT_COLOR = (0xff, 0xff, 0xff)
 
 # needed to identify the USB HID device
 VENDOR_ID: int = 0x1a86
@@ -20,7 +25,7 @@ STATIC_COLOR_START_SEQUENCE = [0x52, 0x42, 0x10]
 
 # This sequence defines the color. Used to bring the list to the right length, values are overwritten later when a color
 # is picked.
-RGB_SEQUENCE = [0xff, 0xff, 0xff]
+RGB_SEQUENCE = DEFAULT_COLOR
 
 # Bytes 6-8 represent the RGB values of GENERIC_STATIC_COLOR_COMMAND
 RGB_INDEX = slice(6, 8)
