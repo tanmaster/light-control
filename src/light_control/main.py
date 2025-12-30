@@ -1,14 +1,15 @@
 import sys
 from typing import Any
 
-from PySide6.QtCore import QRunnable, QThreadPool, QTimer, Slot
-from PySide6.QtGui import QIcon, QPixmap, QColor, QAction
+from PySide6.QtCore import QRunnable, QThreadPool, QTimer
+from PySide6.QtGui import QIcon, QPixmap, QColor
 from PySide6.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QColorDialog
+from usbx import usb
+
 from light_control.constants import APP_NAME, DEVICE_ID
 from light_control.hid_light import HIDLight
 from light_control.listener import LEDConnectedListener
 from light_control.settings import StoredSettings
-from usbx import usb
 
 
 class ColorChangeWorker(QRunnable):
@@ -52,12 +53,9 @@ class LightControlApplication:
 
         # 3. Setup Tray
         self.tray = QSystemTrayIcon(self.create_icon(), self.app)
-        # self.tray.activated.connect(self.on_tray_activated)
+        self.tray.activated.connect(self.on_tray_activated)
 
         menu = QMenu()
-        self.status_action = QAction(f"Device Status: {self.light.status}", menu)
-        self.status_action.setEnabled(False)  # This makes it non-interactive
-        menu.addAction(self.status_action)
         menu.addAction("Open Picker", self.open_picker)
         menu.addSeparator()
         menu.addAction("Quit", self.app.quit)
@@ -87,9 +85,10 @@ class LightControlApplication:
             worker = ColorChangeWorker(self.pending_color, self.light, self.settings)
             self.thread_pool.start(worker)
 
-    @Slot(str)
-    def update_status(self, new_status) -> None:
-        self.status_action.setText(f"Device Status: {new_status}")
+    def on_tray_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
+        """Handle tray icon interaction (e.g., left-click)"""
+        if reason == QSystemTrayIcon.Trigger:
+            self.open_picker()
 
     def run(self) -> Any:
         sys.exit(self.app.exec())
@@ -110,11 +109,10 @@ if __name__ == "__main__":
 
     app = LightControlApplication(hid_light, stored_settings)
 
-    hid_light.status_changed.connect(app.update_status)
     # listener for usb changes (plug in, plug out)
     listener = LEDConnectedListener(
         **DEVICE_ID,
-        callback_fn=app.execute_color_change
+        callback=app.execute_color_change
     )
     usb.on_connected(listener.handler)
 
