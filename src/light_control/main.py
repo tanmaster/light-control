@@ -53,7 +53,6 @@ class LightControlApplication:
 
         # 3. Setup Tray
         self.tray = QSystemTrayIcon(self.create_icon(), self.app)
-        self.tray.activated.connect(self.on_tray_activated)
 
         menu = QMenu()
         menu.addAction("Open Picker", self.open_picker)
@@ -84,11 +83,6 @@ class LightControlApplication:
         if self.pending_color:
             worker = ColorChangeWorker(self.pending_color, self.light, self.settings)
             self.thread_pool.start(worker)
-
-    def on_tray_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
-        """Handle tray icon interaction (e.g., left-click)"""
-        if reason == QSystemTrayIcon.Trigger:
-            self.open_picker()
 
     def run(self) -> Any:
         sys.exit(self.app.exec())
