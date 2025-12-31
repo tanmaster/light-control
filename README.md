@@ -40,11 +40,7 @@ see https://github.com/astral-sh/uv?tab=readme-ov-file#installation)
 
 ```shell
 curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-to run:
-
-```shell
+git clone https://github.com/tanmaster/light-control.git && cd light-control
 uv run python src/light_control/main.py
 ```
 
