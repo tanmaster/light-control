@@ -21,14 +21,15 @@ At over 100MB unzipped, this project is admittedly large for its functionality. 
 learning exercise rather than an optimized utility.
 
 Future Plans:
-I hope to eventually port the core functionality to OpenRGB, which is the more appropriate ecosystem for this tool.
+I hope to eventually port the core functionality to [OpenRGB](https://openrgb.org/), which is the more appropriate
+ecosystem for this tool.
 
 For Contributors:
 If you wish to integrate this protocol into other projects, the essential logic is contained within `constants.py` and
 `hid_light.py` (approx. 100 lines of code). Those files include documentation on the USB HID byte sequences I
 reversed-engineered.
 
-Disclaimer:
+**Disclaimer**:
 This software has been manually verified only on the specific hardware described above (Vendor ID: `0x1A86`, Product ID:
 `0xFE07`, 80-LED variant). Use this tool at your own risk; transmitting raw byte commands to USB HID devices carries a
 small but inherent risk of causing permanent hardware failure (bricking).
@@ -47,6 +48,7 @@ uv run python src/light_control/main.py
 uv will download all required dependencies and run `light-control`.
 
 #### todo
+
 - create proper releases on all platforms
 - autostart application
 - actually add this device to the openRGB project and make this project obsolete
