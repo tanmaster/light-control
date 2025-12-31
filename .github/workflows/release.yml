@@ -19,9 +19,9 @@ jobs:
           - os: windows-latest
             artifact_name: light-control-Windows.zip
             dist_path: dist/main
-          - os: macos-latest
-            artifact_name: light-control-MacOS.zip
-            dist_path: dist/main
+         #  - os: macos-latest
+         #    artifact_name: light-control-MacOS.zip
+         #    dist_path: dist/main
           - os: ubuntu-latest
             artifact_name: light-control-Linux.zip
             dist_path: dist/main
