@@ -2,7 +2,7 @@
 
 Attempting to reverse engineer the DX-Light App to control a generic monitor backlight strip.
 This software will control a generic [light strip monitor backlight](https://www.amazon.de/dp/B0F53TVYZL) frequently
-found on amazon. Kudos go out
+found under various brand names on amazon. Kudos go out
 to [this reddit user](https://www.reddit.com/r/Fedora/comments/1nygjfu/chinese_noname_light_strip/nik3ven/) for the idea
 of capturing usb packets via wireshark and replaying them.
 
