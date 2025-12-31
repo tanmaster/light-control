@@ -9,6 +9,7 @@ of capturing usb packets via wireshark and replaying them.
 ### Features
 
 - allows for setting a static color
+- cross-platform
 - program stays alive in system tray (can be exited and light should remain)
 - uses a basic color picker
 - persists selected color and reads it on next start
@@ -47,7 +48,9 @@ to run:
 uv run python src/light_control/main.py
 ```
 
-#### todo
+uv will download all required dependencies and run `light-control`.
 
+#### todo
+- create proper releases on all platforms
 - autostart application
 - actually add this device to the openRGB project and make this project obsolete
