@@ -16,12 +16,16 @@ of capturing usb packets via wireshark and replaying them.
 
 ### Limitations
 
-I am aware that the unzipped project takes up more than 100MBs (I wouldn't want to run a program this large just to
-control some LEDs myself), but this is not something I intend to change anymore. The project was rather a learning
-opportunity for me. If I find time in the future, I intend to incorporate the basic functionality that this project
-provides into [openRGB](https://openrgb.org/) (probably should have done that in the first place). In case anyone
-stumbles upon this and wants to beat me to it: the 'meat' of the HID command can be found inside `constants.py` and
-`hid_light.py` (~100 lines combined). There I also explain what (I think) I figured out about the byte sequence.
+At over 100MB unzipped, this project is admittedly large for its functionality. It was developed primarily as a personal
+learning exercise rather than an optimized utility.
+
+Future Plans:
+I hope to eventually port the core functionality to OpenRGB, which is the more appropriate ecosystem for this tool.
+
+For Contributors:
+If you wish to integrate this protocol into other projects, the essential logic is contained within `constants.py` and
+`hid_light.py` (approx. 100 lines of code). Those files include documentation on the USB HID byte sequences I
+reversed-engineered.
 
 Disclaimer:
 This software has been manually verified only on the specific hardware described above (Vendor ID: `0x1A86`, Product ID:
