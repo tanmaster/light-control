@@ -4,6 +4,11 @@ Attempting to reverse engineer the DX-Light App to control a generic monitor bac
 This software will control a generic [light strip monitor backlight](https://www.amazon.de/dp/B0F53TVYZL) frequently
 found on amazon.
 
+Disclaimer:
+This software has been manually verified only on the specific hardware described above (Vendor ID: `0x1A86`, Product ID:
+`0xFE07`, 80-LED variant). Use this tool at your own risk; transmitting raw byte commands to USB HID devices carries a
+small but inherent risk of causing permanent hardware failure (bricking).
+
 ### installation
 
 install uv based on platform (command below is for macOS, for others
