@@ -1,5 +1,14 @@
 # light-control
 
+> [!WARNING]
+> **This project is deprecated and no longer maintained.**
+> It has been replaced by [**light-control-rs**](https://github.com/tanmaster/light-control-rs),
+> a small native rewrite in Rust (~4 MB, no Python runtime) with
+> [ready-made downloads](https://github.com/tanmaster/light-control-rs/releases/latest)
+> for macOS, Windows and Linux, screen sync (ambient light), launch at login, and the
+> protocol documented in [`docs/protocol.md`](https://github.com/tanmaster/light-control-rs/blob/main/docs/protocol.md).
+> The code below is kept for reference.
+
 Attempting to reverse engineer the [DX-Light App](https://www.dx-light.com/Download.html) to control a generic monitor backlight strip.
 This software will control a generic [light strip monitor backlight](https://www.amazon.de/dp/B0F53TVYZL) frequently
 found under various brand names on amazon. Kudos go out
@@ -49,6 +58,5 @@ uv will download all required dependencies and run `light-control`.
 
 #### todo
 
-- create proper releases on all platforms
-- autostart application
-- actually add this device to the openRGB project and make this project obsolete
+Releases for all platforms and autostart are done in
+[light-control-rs](https://github.com/tanmaster/light-control-rs), which replaces this project.
